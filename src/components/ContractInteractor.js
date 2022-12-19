@@ -80,9 +80,12 @@ function ContractInteractor() {
     <div>
       <div>
         {isRateFetched && isTokenSymbolFetched ? (
-          <h3>
-            {rateData.toString()} {tokenSymbol} (tokens) per Ether
-          </h3>
+          <>
+            <h2>GET</h2>
+            <h3 style={{ color: "green" }}>
+              {rateData.toString()} {tokenSymbol} (tokens) per Ether
+            </h3>
+          </>
         ) : null}
 
         <br />
