@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import DappContent from "components/DappContent";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>NET Token ICO</h1>
+      <h4>Created by Abdullah Mehboob</h4>
+      <br />
+
+      <DappContent />
+      <br />
+
+      <p>Contact me </p>
+      <ul style={{ paddingLeft: "1.4rem" }}>
+        <li>
+          {" "}
+          <a
+            href="https://www.linkedin.com/in/abdullah-mehboob-0012a3203/"
+            target="_blank"
+          >
+            Linkedin
+          </a>
+        </li>
+        <li>
+          {" "}
+          <a href="https://github.com/abdullahmehboob20s" target="_blank">
+            Github Profile
+          </a>
+        </li>
+      </ul>
     </div>
   );
 }
