@@ -1,9 +1,13 @@
 import React from "react";
 import DappContent from "components/DappContent";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <div>
+      <ToastContainer />
+
       <h1>NET Token ICO</h1>
       <h4>Created by Abdullah Mehboob</h4>
       <br />

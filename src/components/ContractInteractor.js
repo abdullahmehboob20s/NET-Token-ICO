@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import {
   useAccount,
   useContract,
@@ -50,6 +51,51 @@ function ContractInteractor() {
     overrides: {
       value: ethers.utils.parseEther("1"),
     },
+    onSuccess: (data) => {
+      toast("TX sent", {
+        autoClose: 3000,
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "dark",
+        type: "info",
+      });
+
+      data
+        .wait(1)
+        .then((res) => {
+          toast("Tokens Bought Succesfully", {
+            autoClose: 3000,
+            position: toast.POSITION.TOP_RIGHT,
+            theme: "dark",
+            type: "success",
+          });
+        })
+        .catch(() => {
+          toast("Unexpected error", {
+            autoClose: 3000,
+            position: toast.POSITION.TOP_RIGHT,
+            theme: "dark",
+            type: "error",
+          });
+        });
+    },
+    onError: (error, abc) => {
+      if (error.message.includes("insufficient funds")) {
+        toast("Insufficient Funds", {
+          autoClose: 3000,
+          position: toast.POSITION.TOP_RIGHT,
+          theme: "dark",
+          type: "error",
+        });
+      } else {
+        toast("Unknown Error, See console", {
+          autoClose: 3000,
+          position: toast.POSITION.TOP_RIGHT,
+          theme: "dark",
+          type: "error",
+        });
+      }
+      console.log("buytokens error: ", error);
+    },
   });
 
   const {
@@ -60,8 +106,6 @@ function ContractInteractor() {
   } = useWaitForTransaction({
     hash: buyTokensData?.hash,
   });
-
-  console.log(isWaitOver ? data : "will get");
 
   const submitForm = (e) => {
     e.preventDefault();
