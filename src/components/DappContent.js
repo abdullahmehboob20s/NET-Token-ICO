@@ -12,6 +12,7 @@ import {
 import { InjectedConnector } from "wagmi/connectors/injected";
 import ContractInteractor from "components/ContractInteractor";
 import TokenData from "contractDetails/goerli/New_token.json";
+import AllTokensData from "./AllTokensData";
 
 function DappContent() {
   const { chain } = useNetwork();
@@ -72,6 +73,10 @@ function DappContent() {
   if (isConnected) {
     return (
       <div>
+        {/* <AllTokensData />
+        <br />
+        <br /> */}
+
         <p>Address: {address}</p>
         {balanceLoaded && (
           <p>

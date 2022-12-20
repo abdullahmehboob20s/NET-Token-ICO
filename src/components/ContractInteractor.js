@@ -12,6 +12,7 @@ import {
 } from "wagmi";
 import crowdsaleContractDetails from "../contractDetails/goerli/Crowdsale.json";
 import tokenContractDetails from "../contractDetails/goerli/New_token.json";
+import { Offline, Online } from "react-detect-offline";
 
 const crowdsaleContract = {
   address: crowdsaleContractDetails.address,
@@ -122,46 +123,57 @@ function ContractInteractor() {
 
   return (
     <div>
-      <div>
-        {isRateFetched && isTokenSymbolFetched ? (
-          <>
-            <h2>GET</h2>
-            <h3 style={{ color: "green" }}>
-              {rateData.toString()} {tokenSymbol} (tokens) per Ether
-            </h3>
-          </>
-        ) : null}
+      <Online>
+        <div>
+          {isRateFetched && isTokenSymbolFetched ? (
+            <>
+              <h2>GET</h2>
+              <h3 style={{ color: "green" }}>
+                {rateData.toString()} {tokenSymbol} (tokens) per Ether
+              </h3>
+            </>
+          ) : null}
 
-        <br />
+          <br />
 
-        <form onSubmit={submitForm}>
-          <label htmlFor="etherValue">Ether:</label>
-          <input
-            value={value}
-            step="any"
-            onChange={(e) => setValue(e.target.value)}
-            disabled={isBuyingTokensLoading ? true : false}
-            type="number"
-            id="etherValue"
-            placeholder="1 Ether"
-          />
-          <button disabled={isBuyingTokensLoading ? true : false} type="submit">
-            Buy Tokens
-          </button>
-        </form>
-        <br />
-        {buyTokensData && isWaitingForBuyingToken ? (
-          <>
-            <p> Mining TX {buyTokensData?.hash} .....</p>
-            <a
-              href={`https://goerli.etherscan.io/tx/${buyTokensData?.hash}`}
-              target="_blank"
+          <form onSubmit={submitForm}>
+            <label htmlFor="etherValue">Ether:</label>
+            <input
+              value={value}
+              step="any"
+              onChange={(e) => setValue(e.target.value)}
+              disabled={isBuyingTokensLoading ? true : false}
+              type="number"
+              id="etherValue"
+              placeholder="1 Ether"
+            />
+            <button
+              disabled={isBuyingTokensLoading ? true : false}
+              type="submit"
             >
-              view on etherscan
-            </a>
-          </>
-        ) : null}
-      </div>
+              Buy Tokens
+            </button>
+          </form>
+          <br />
+          {buyTokensData && isWaitingForBuyingToken ? (
+            <>
+              <p> Mining TX {buyTokensData?.hash} .....</p>
+              <a
+                href={`https://goerli.etherscan.io/tx/${buyTokensData?.hash}`}
+                target="_blank"
+              >
+                view on etherscan
+              </a>
+            </>
+          ) : null}
+        </div>
+      </Online>
+
+      <Offline>
+        <p style={{ color: "red" }}>
+          Please Check Your Internet Connection and try again
+        </p>
+      </Offline>
     </div>
   );
 }
