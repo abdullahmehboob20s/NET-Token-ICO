@@ -138,6 +138,7 @@ function ContractInteractor() {
           <label htmlFor="etherValue">Ether:</label>
           <input
             value={value}
+            step="any"
             onChange={(e) => setValue(e.target.value)}
             disabled={isBuyingTokensLoading ? true : false}
             type="number"
